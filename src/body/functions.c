@@ -7,11 +7,23 @@
 #include "../header/structures.h"
 #include "../header/constants.h"
 
-void move_player(Player *player) {
-    if (IsKeyDown(KEY_UP) && player->position.y >= GetScreenHeight() * 3 / 4) player->position.y -= 2;
-    if (IsKeyDown(KEY_DOWN) && player->position.y <= GetScreenHeight()) player->position.y += 2;
-    if (IsKeyDown(KEY_LEFT) && player->position.x >= 0) player->position.x -= 2;
-    if (IsKeyDown(KEY_RIGHT) && player->position.x <= GetScreenWidth()) player->position.x += 2;
+void draw_bullet(Bullet *bullet, Texture2D bullet_texture) {
+    while (bullet != NULL) {
+        DrawTextureV(bullet_texture, bullet->position, WHITE);
+        bullet = bullet->previous_bullet;
+    }
+}
+
+void draw_mushrooms(Mushroom *mushrooms) {
+    int i;
+
+    for (i = 0; i < MUSHROOMS; i++) {
+        DrawTextureV(mushrooms[i].texture, mushrooms[i].position, WHITE);
+    }
+}
+
+void draw_player(Player *player) {
+    DrawTextureV(player->texture, player->position, WHITE);
 }
 
 void initialize_mushrooms(Mushroom *mushrooms) {
@@ -41,16 +53,11 @@ void initialize_player(Player *player) {
     UnloadImage(player_image);
 }
 
-void draw_mushrooms(Mushroom *mushrooms) {
-    int i;
-
-    for (i = 0; i < MUSHROOMS; i++) {
-        DrawTextureV(mushrooms[i].texture, mushrooms[i].position, WHITE);
-    }
-}
-
-void draw_player(Player *player) {
-    DrawTextureV(player->texture, player->position, WHITE);
+void move_player(Player *player) {
+    if (IsKeyDown(KEY_UP) && player->position.y >= GetScreenHeight() * 3 / 4) player->position.y -= 2;
+    if (IsKeyDown(KEY_DOWN) && player->position.y <= GetScreenHeight()) player->position.y += 2;
+    if (IsKeyDown(KEY_LEFT) && player->position.x >= 0) player->position.x -= 2;
+    if (IsKeyDown(KEY_RIGHT) && player->position.x <= GetScreenWidth()) player->position.x += 2;
 }
 
 void shoot(Player *player, Bullet **bullet) {
@@ -76,11 +83,13 @@ void shoot(Player *player, Bullet **bullet) {
     }
 }
 
-void draw_bullet(Bullet *bullet, Texture2D bullet_texture) {
-    while (bullet != NULL) {
-        DrawTextureV(bullet_texture, bullet->position, WHITE);
-        bullet = bullet->previous_bullet;
-    }
+void unload_textures(Mushroom *mushrooms, Player *player) {
+    int i;
+
+    for(i = 0; i < MUSHROOMS; i++)
+        UnloadTexture(mushrooms[i].texture);
+
+    UnloadTexture(player->texture);
 }
 
 void update_bullets(Bullet **bullet) {
@@ -99,15 +108,6 @@ void update_bullets(Bullet **bullet) {
             b = b->previous_bullet;
         }
     }
-}
-
-void unload_textures(Mushroom *mushrooms, Player *player) {
-    int i;
-
-    for(i = 0; i < MUSHROOMS; i++)
-        UnloadTexture(mushrooms[i].texture);
-
-    UnloadTexture(player->texture);
 }
 
 #endif

@@ -1,6 +1,6 @@
 #include "raylib.h"
 
-#include "body/functions.c"
+#include "header/functions.h"
 #include "header/constants.h"
 
 #define GAME_TITLE "Biodict"
@@ -12,7 +12,7 @@ int main(void) {
 
     Mushroom mushrooms[MUSHROOMS];
 
-    Bullet *bullet = NULL;
+    Bullet *bullet = (void *) 0;
 
     InitWindow(screen_width, screen_height, GAME_TITLE);
     SetTargetFPS(60);
