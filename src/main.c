@@ -1,54 +1,41 @@
 #include "raylib.h"
 
-#include "body/body.h"
+#include "body/functions.c"
+#include "header/constants.h"
 
 #define GAME_TITLE "Biodict"
 
-int main() {
-    int screen_width, screen_height;
-
-    Image icon;
+int main(void) {
+    int screen_width = 800, screen_height = 640;
 
     Player player;
 
-    Image bullet_image;
-    Texture2D bullet_texture;
+    Mushroom mushrooms[MUSHROOMS];
 
-    InitWindow(800, 800, GAME_TITLE);
+    Bullet *bullet = NULL;
 
-    icon = LoadImage("resources/green_spider.png");
-    ImageResize(&icon, 96, 69);
-
-    screen_width =  GetMonitorWidth(GetCurrentMonitor()) / 2;
-    screen_height = GetMonitorHeight(GetCurrentMonitor()) / 2;
-
-    SetWindowSize(screen_width, screen_height);
-    LoadTextureFromImage(icon);
-    SetWindowIcon(icon);
-    UnloadImage(icon);
-//    ToggleFullscreen();
-    MaximizeWindow();
-
+    InitWindow(screen_width, screen_height, GAME_TITLE);
     SetTargetFPS(60);
 
-    initialize_player(&player, screen_width, screen_height);
-    initialize_bullet_textures(&bullet_image, &bullet_texture);
+    initialize_mushrooms(mushrooms);
+    initialize_player(&player);
+
+    Texture2D bullet_texture = LoadTextureFromImage(LoadImage("resources/bullet.png"));
 
     // Main game loop
     while (!WindowShouldClose()) {
-        move_farmer(&player, screen_width, screen_height);
-        shoot(&player);
-        update_bullets(&player, bullet_image, bullet_texture);
+        move_player(&player);
+        shoot(&player, &bullet);
+        update_bullets(&bullet);
 
         BeginDrawing();
-        DrawTextureV(player.player_texture, player.position, WHITE);
-        DrawLine(0, screen_height * 3 / 4, screen_width, screen_height * 3 / 4, RED);
+        draw_bullet(bullet, bullet_texture);
+        draw_player(&player);
+        draw_mushrooms(mushrooms);
         ClearBackground(BLACK);
         EndDrawing();
     }
-    UnloadTexture(player.player_texture);
-    UnloadTexture(bullet_texture);
-
+    unload_textures(mushrooms, &player);
     CloseWindow();
     return 0;
 }

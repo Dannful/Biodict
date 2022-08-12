@@ -1,3 +1,0 @@
-D:/Documentos/CS/Workspaces/C/Biodict/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir
-D:/Documentos/CS/Workspaces/C/Biodict/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/edit_cache.dir
-D:/Documentos/CS/Workspaces/C/Biodict/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/rebuild_cache.dir

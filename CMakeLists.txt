@@ -23,6 +23,9 @@ endif()
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.c")
 set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/")
 
+# Header files
+file(GLOB_RECURSE PROJECT_HEADERS CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/header/*.h")
+
 # Resource files
 file(GLOB files "resources/*")
 foreach (file ${files})
@@ -30,8 +33,8 @@ foreach (file ${files})
 endforeach ()
 
 # Executable
-add_executable(${PROJECT_NAME} src/header/header.h src/body/body.h)
-target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
+add_executable(${PROJECT_NAME} src/main.c)
+#target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
