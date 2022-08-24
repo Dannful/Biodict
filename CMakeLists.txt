@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(Biodict C)
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 # Raylib
 find_package(raylib 4.2.0 QUIET) # QUIET or REQUIRED
