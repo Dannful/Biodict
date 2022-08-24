@@ -1,10 +1,10 @@
 #ifndef BIODICT_ENUMS_H
 #define BIODICT_ENUMS_H
 
-enum MushroomState {
+typedef enum {
 
     FULL = 1,
     HALF = 0
-};
+} MUSHROOM_STATE;
 
-#endif //BIODICT_ENUMS_H
+#endif

@@ -1,3 +1,4 @@
+#include <time.h>
 #include "raylib.h"
 
 #include "header/functions.h"
@@ -8,34 +9,46 @@
 int main(void) {
     int screen_width = 800, screen_height = 640;
 
-    Player player;
+    PLAYER player;
+    MUSHROOM mushrooms[MUSHROOMS];
+    GAME_TEXTURES game_textures;
 
-    Mushroom mushrooms[MUSHROOMS];
-
-    Bullet *bullet = (void *) 0;
+    BULLET *head_bullet = (void *) 0;
+    unsigned int last_bullet_time = 0;
+    int frames_counter = 0;
 
     InitWindow(screen_width, screen_height, GAME_TITLE);
-    SetTargetFPS(60);
+    SetTargetFPS(FPS);
+    HideCursor();
 
-    initialize_mushrooms(mushrooms);
-    initialize_player(&player);
+    screen_width = GetMonitorWidth(GetCurrentMonitor());
+    screen_height = GetMonitorHeight(GetCurrentMonitor());
+    SetWindowSize(screen_width, screen_height);
+    MaximizeWindow();
+    ToggleFullscreen();
 
-    Texture2D bullet_texture = LoadTextureFromImage(LoadImage("resources/bullet.png"));
+    SetRandomSeed(time(0));
 
-    // Main game loop
+    initialize_textures(&game_textures);
+    initialize_player(&player, game_textures.player);
+    initialize_mushrooms(mushrooms, game_textures.mushroom);
+
+
     while (!WindowShouldClose()) {
-        move_player(&player);
-        shoot(&player, &bullet);
-        update_bullets(&bullet);
+        frames_counter++;
+        animate_player(&player, game_textures.player);
+        shoot(&player, &head_bullet, game_textures.bullet, &last_bullet_time, frames_counter);
+        update_bullets(&head_bullet);
 
         BeginDrawing();
-        draw_bullet(bullet, bullet_texture);
-        draw_player(&player);
-        draw_mushrooms(mushrooms);
+        draw_crosshair(game_textures.crosshair);
+        draw_bullet(head_bullet, game_textures.bullet);
+        draw_player(&player, game_textures.player);
+        draw_mushrooms(mushrooms, game_textures.mushroom);
         ClearBackground(BLACK);
         EndDrawing();
     }
-    unload_textures(mushrooms, &player);
+    unload_textures(game_textures);
     CloseWindow();
     return 0;
 }
