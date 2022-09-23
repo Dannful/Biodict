@@ -4,7 +4,7 @@
 /* Game constants */
 
 #define FPS 60
-#define MUSHROOMS 5 // Initial mushroom count
+#define MUSHROOMS 60 // Initial mushroom count
 
 /* Files */
 
