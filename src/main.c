@@ -1,7 +1,9 @@
 #include <time.h>
 #include "raylib.h"
 
-#include "header/functions.h"
+#include "header/functions/game.h"
+#include "header/functions/initialization.h"
+#include "header/functions/graphics.h"
 #include "header/constants.h"
 
 #define GAME_TITLE "Biodict"
