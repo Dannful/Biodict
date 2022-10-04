@@ -87,6 +87,13 @@ void draw_ranking(GAME game);
 void draw_save_menu(GAME *game, NAME_EDIT *name_edit);
 
 /**
+ * Draws the menu to save to the leaderboard
+ * @param game the reference to the structure containing the selected tab and the user's name
+ * @param name_edit the reference to the structure containing the editing data
+ */
+void draw_save_ranking(GAME *game, NAME_EDIT *name_edit);
+
+/**
  * Draws the millipede's segments
  * @param game the reference to the structure containing the millipede's texture and segments data
  */

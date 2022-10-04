@@ -4,8 +4,11 @@
 #include "functions/game.h"
 
 #include <string.h>
+#include <time.h>
 
 void initialize_game(GAME *game) {
+    SetRandomSeed(time(0));
+
     game->temp_data.selected = NONE;
     game->temp_data.game_time = 0;
     game->mushroom_count = MUSHROOMS;
@@ -157,4 +160,9 @@ void initialize_textures(GAME_TEXTURES *game_textures) {
     ImageResize(&millipede_image, millipede_image.width / 4, millipede_image.height / 4);
     game_textures->millipede = LoadTextureFromImage(millipede_image);
     UnloadImage(millipede_image);
+}
+
+void initialize_window() {
+    InitWindow(WIDTH, HEIGHT, TITLE);
+    SetTargetFPS(FPS);
 }

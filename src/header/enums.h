@@ -22,7 +22,8 @@ typedef enum {
     LOAD = 1,
     PAUSE = 2,
     RANKING = 3,
-    NONE = 4
+    SAVE_RANKING = 4,
+    NONE = 5
 
 } MENU_OPTION;
 

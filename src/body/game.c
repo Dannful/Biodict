@@ -14,20 +14,26 @@ void check_mushroom_count(GAME *game) {
 }
 
 void end_game(GAME *game) {
-    if (game->mushroom_count == 0) {
-        unload_textures(game->temp_data.game_textures);
-        initialize_game(game);
+    if (game->mushroom_count == 0 || game->player.remaining_bullets == 0 || game->player.lives < 0) {
+        game->player.state = FARMER_DEAD;
+        game->temp_data.selected = SAVE_RANKING;
     }
 }
 
-void game_loop(GAME *game) {
+void game_loop() {
+    GAME game;
     NAME_EDIT name_edit = {};
 
+    initialize_game(&game);
+
     while (!WindowShouldClose()) {
-        on_menu_click(game);
-        game_updates(game);
-        game_drawing(game, &name_edit);
+        on_menu_click(&game);
+        game_updates(&game);
+        game_drawing(&game, &name_edit);
     }
+
+    unload_textures(game.temp_data.game_textures);
+    CloseWindow();
 }
 
 void game_updates(GAME *game) {
@@ -85,11 +91,7 @@ void kill_player(GAME *game) {
     game->player.lives--;
     game->player.state = FARMER_ACTIVE;
     game->player.sick = 0;
-    if (game->player.lives == 0) {
-        game->player.state = FARMER_DEAD;
-        unload_textures(game->temp_data.game_textures);
-        initialize_game(game);
-    }
+    end_game(game);
 }
 
 void maximize_target(SPIDER *spider) {
@@ -150,6 +152,7 @@ void shoot(GAME *game) {
         DrawLineV(game->player.position, game->player.shot.target, PLAYER_SHOT_COLOR);
         game->player.shot.last_bullet_frame = game->temp_data.game_time;
         game->player.remaining_bullets--;
+        end_game(game);
     }
 }
 

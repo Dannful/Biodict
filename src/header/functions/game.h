@@ -19,7 +19,7 @@ void end_game(GAME *game);
  * The main game loop
  * @param game the reference to the game structure
  */
-void game_loop(GAME *game);
+void game_loop();
 
 /**
  * The main game updates

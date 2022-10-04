@@ -1,6 +1,7 @@
 #include "functions/graphics.h"
 #include "functions/game.h"
 #include "functions/io.h"
+#include "functions/sorting.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -82,6 +83,7 @@ void draw_menu(GAME *game, NAME_EDIT *name_edit) {
     draw_load_menu(game, name_edit);
     draw_save_menu(game, name_edit);
     draw_ranking(*game);
+    draw_save_ranking(game, name_edit);
 }
 
 void draw_millipede(MILLIPEDE *millipede, Texture2D millipede_texture) {
@@ -136,6 +138,11 @@ void draw_ranking(GAME game) {
 void draw_save_menu(GAME *game, NAME_EDIT *name_edit) {
     if (game->temp_data.selected == PAUSE)
         draw_input_requirement(game, name_edit, (void (*)(GAME *)) &save_game);
+}
+
+void draw_save_ranking(GAME *game, NAME_EDIT *name_edit) {
+    if (game->temp_data.selected == SAVE_RANKING)
+        draw_input_requirement(game, name_edit, &save_to_leaderboard);
 }
 
 void draw_segments(GAME *game) {

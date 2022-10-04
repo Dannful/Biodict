@@ -1,4 +1,7 @@
 #include "functions/sorting.h"
+#include "functions/io.h"
+#include "functions/initialization.h"
+#include "functions/graphics.h"
 
 #include <string.h>
 
@@ -50,4 +53,7 @@ void save_to_leaderboard(GAME *game) {
     }
     check_last_position(game->temp_data.records, game->player, inserted);
     sort_records(game->temp_data.records);
+    save_to_leaderboard_file(game->temp_data.records);
+    unload_textures(game->temp_data.game_textures);
+    initialize_game(game);
 }

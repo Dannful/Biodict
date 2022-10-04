@@ -65,8 +65,6 @@ void save_game(GAME *game) {
                file);
         fclose(file);
     }
-    save_to_leaderboard(game);
-    save_to_leaderboard_file(game->temp_data.records);
 }
 
 void save_to_leaderboard_file(RECORD records[]) {

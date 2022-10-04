@@ -55,4 +55,9 @@ void initialize_spiders(SPIDER spiders[]);
  */
 void initialize_textures(GAME_TEXTURES *game_textures);
 
+/**
+ * Initializes the game's window and sets the fps
+ */
+void initialize_window();
+
 #endif
