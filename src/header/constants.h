@@ -21,7 +21,7 @@
 
 /* Player */
 
-#define PLAYER_BULLETS 5 // Initial player bullets
+#define PLAYER_BULLETS 200 // Initial player bullets
 #define PLAYER_HEAL_AMOUNT 2
 #define PLAYER_INVULNERABILITY_SECONDS 5
 #define PLAYER_LIVES 3 // Initial player lives
