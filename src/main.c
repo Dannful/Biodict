@@ -4,7 +4,7 @@
  * Turma D
  */
 
-#include "header/functions/game.h"
+#include "functions/game.h"
 #include "functions/initialization.h"
 
 int main(void) {
