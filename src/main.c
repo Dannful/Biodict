@@ -1,3 +1,9 @@
+/**
+ * Jogo Biodict
+ * Autores: Eduarda Tessari Pereira e Vinícius Daniel Spadotto
+ * Turma D
+ */
+
 #include "header/functions/game.h"
 #include "functions/initialization.h"
 
